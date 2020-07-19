@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    将对象的创建交给spring来管理存入map集合中，key为id，value为对象-->
+    <bean id="accountDao" class="top.humg.dao.impl.AccountDaoImpl"></bean>
+
+    <bean id="accountService" class="top.humg.service.impl.AccountServiceImpl"></bean>
+</beans>

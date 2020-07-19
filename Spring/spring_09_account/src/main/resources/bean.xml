@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="proxyAccountService" class="top.humg.factory.BeanFactory"
+          factory-bean="beanFactory" factory-method="getAccountService"/>
+<!--配置工厂-->
+    <bean id="beanFactory" class="top.humg.factory.BeanFactory">
+        <property name="accountService" ref="accountService"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="txManager" class="top.humg.utils.TransactionManager">
+        <property name="connectionUtils" ref="connectionUtils"/>
+    </bean>
+
+    <bean id="connectionUtils" class="top.humg.utils.ConnectionUtils">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--    在getBean获取service对象时，会对property标签内属性进行依赖注入-->
+    <bean id="accountService" class="top.humg.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+
+    <!--    将对象的创建交给spring来管理存入map集合中，key为id，value为对象-->
+    <bean id="accountDao" class="top.humg.dao.impl.AccountDaoImpl">
+        <property name="runner" ref="queryRunner"/>
+    </bean>
+
+    <!--QueryRunner应使用多例模式-->
+    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner"
+          scope="prototype">
+        <!--        使用有参构造方法创建QueryRunner对象-->
+        <constructor-arg name="ds" ref="dataSource"/>
+    </bean>
+
+    <!--    配置数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--        注入连接数据库的信息-->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+
+
+
+</beans>
