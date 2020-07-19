@@ -20,8 +20,10 @@
     <aop:config>
         <aop:aspect id="logAdvice" ref="logger">
             <!--        配置切入点和前置通知-->
-            <aop:before method="printLog"
+            <aop:before method="beforePrintLog"
                         pointcut="execution(* top.humg.service.impl.*.*(..))"/>
+
+
         </aop:aspect>
     </aop:config>
 </beans>
