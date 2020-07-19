@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="accountService" class="top.humg.service.impl.AccountServiceImpl"/>
+
+    <!--    spring中基于xml的AOP配置步骤-->
+    <!--    把通知bean也交给spring来管理
+            使用aop:config标签表明开始AOP的配置
+            使用aop:aspect表明开始配置切面
+            pointcut属性：用于指定切入点表达式
+    -->
+    <bean id="logger" class="top.humg.utils.Logger"/>
+    <!--    使用aop:config标签表明开始AOP的配置-->
+    <aop:config>
+        <aop:aspect id="logAdvice" ref="logger">
+            <!--        配置切入点和前置通知-->
+            <aop:before method="printLog"
+                        pointcut="execution(public void top.humg.service.impl.AccountServiceImpl.saveAccount())"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
