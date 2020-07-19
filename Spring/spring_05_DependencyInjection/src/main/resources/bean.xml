@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    将对象的创建交给spring来管理存入map集合中，key为id，value为对象-->
+    <bean id="accountService" class="top.humg.service.impl.AccountServiceImpl" scope="prototype">
+        <constructor-arg name="name" value="胡民港"></constructor-arg>
+        <constructor-arg name="age" value="22"></constructor-arg>
+        <constructor-arg name="birthday" ref="now"></constructor-arg>
+    </bean>
+
+<!--    通过反射创建Date对象，并传入上文的构造方法中-->
+    <bean id="now" class="java.util.Date">
+        <!--        <constructor-arg name="year" value="1997"></constructor-arg>-->
+        <!--        <constructor-arg name="month" value="7"></constructor-arg>-->
+        <!--        <constructor-arg name="date" value="22"></constructor-arg>-->
+    </bean>
+
+<!--    set方法注入
+        涉及的标签：property
+        出现的位置：bean标签的内部
+-->
+    <bean id="accountService2" class="top.humg.service.impl.AccountServiceImplSet" scope="singleton">
+        <property name="name" value="艾伦"></property>
+        <property name="age"  value="3"></property>
+        <property name="birthday" ref="now"></property>
+    </bean>
+
+    <!--    复杂类型的注入
+        涉及的标签：property
+        出现的位置：bean标签的内部
+-->
+    <bean id="accountService3" class="top.humg.service.impl.AccountServiceImpl3" scope="singleton">
+        <property name="myStrs">
+            <array>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </array>
+        </property>
+
+        <property name="myList">
+            <list>
+                <value>111</value>
+                <value>222</value>
+                <value>333</value>
+            </list>
+        </property>
+
+        <property name="mySet">
+            <set>
+                <value>444</value>
+                <value>555</value>
+                <value>666</value>
+            </set>
+        </property>
+
+        <property name="myMap">
+            <map>
+                <entry key="胡民港" value="22"></entry>
+                <entry key="艾伦" value="3"></entry>
+            </map>
+        </property>
+
+        <property name="myProps">
+            <props>
+                <prop key="a">胡元光</prop>
+                <prop key="b">刘均华</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
