@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.IAccountDao">
+
+    <resultMap id="accountUserMap" type="account">
+        <id column="aid" property="ID"></id>
+        <result column="UID" property="UID"></result>
+        <result column="money" property="MONEY"></result>
+        <!--        配置封装Account中user属性的内容
+        select属性指定的内容，查询用户的唯一标志-->
+        <association property="user" column="UID" javaType="user"
+                     select="com.itheima.dao.IUserDao.findById"></association>
+    </resultMap>
+
+    <!--配置查询所有-->
+    <select id="findAll" resultMap="accountUserMap">
+        <include refid="defaultSql"></include>
+    </select>
+
+<!--    parameterType默认类型为int，所以可以不写-->
+    <select id="findByUid" parameterType="int" resultType="account">
+        <include refid="defaultSql"></include>
+        <where>
+            and UID = #{uid}
+        </where>
+    </select>
+    <sql id="defaultSql">
+        <!--定义需复用的SQL语句-->
+        select * from account
+    </sql>
+</mapper>
