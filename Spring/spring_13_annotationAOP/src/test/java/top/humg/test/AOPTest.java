@@ -15,8 +15,8 @@ public class AOPTest {
 
     @Test
     public void test1() {
-        service.saveAccount();
-//        service.deleteAccount();
-//        service.updateAccount(12);
+        //这是新分支，新的分支哦
+//        service.saveAccount();
+        service.updateAccount(12);//使用环绕通知插入
     }
 }

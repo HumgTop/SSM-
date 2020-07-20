@@ -11,8 +11,13 @@ import org.springframework.stereotype.Component;
 @Aspect//配置为切面类
 public class Logger {
     //定义切入点方法
-    @Pointcut("execution(* top.humg.service.impl.*.*(..))")
-    private void pt1() {}
+    @Pointcut("execution(* top.humg.service.impl.*.saveAccount(..))")
+    private void pt1() {
+    }
+
+    @Pointcut("execution(* top.humg.service.impl.*.updateAccount(..))")
+    private void pt2() {
+    }
 
     //打印日志，在切入点方法前执行（前置通知）
     @Before("pt1()")
@@ -39,6 +44,7 @@ public class Logger {
     }
 
     //环绕通知
+    @Around("pt2()")
     public Object afterAroundPrintLog(ProceedingJoinPoint pjp) {
         try {
             Object[] args = pjp.getArgs();//获取业务层方法所需参数
