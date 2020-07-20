@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/aop/spring-context.xsd">
+<!--配置创建容器时需要扫描的包-->
+    <context:component-scan base-package="top.humg"/>
+
+<!--    <bean id="accountService" class="top.humg.service.impl.AccountServiceImpl"/>-->
+
+    <!--    spring中基于xml的AOP配置步骤-->
+    <!--    把通知bean也交给spring来管理
+            使用aop:config标签表明开始AOP的配置
+            使用aop:aspect表明开始配置切面
+            pointcut属性：用于指定切入点表达式
+    -->
+<!--    <bean id="logger" class="top.humg.utils.Logger"/>-->
+    <!--    使用aop:config标签表明开始AOP的配置-->
+    <aop:config>
+        <!--            配置切入点为save方法-->
+        <aop:pointcut id="save" expression="execution(* top.humg.service.impl.*.saveAccount(..))"/>
+
+        <aop:aspect id="logAdvice" ref="logger">
+            <!--        配置切入点和前置通知-->
+            <!--            <aop:before method="beforePrintLog"-->
+            <!--                        pointcut-ref="save"/>-->
+
+            <!--            <aop:after-returning method="afterReturningPrintLog"-->
+            <!--                                 pointcut-ref="save"/>-->
+
+            <!--            <aop:after-throwing method="afterThrowingPrintLog"-->
+            <!--                                pointcut-ref="save"/>-->
+
+            <!--            <aop:after method="afterPrintLog"-->
+            <!--                       pointcut-ref="save"/>-->
+
+            <aop:around method="afterAroundPrintLog"
+                        pointcut-ref="save"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
