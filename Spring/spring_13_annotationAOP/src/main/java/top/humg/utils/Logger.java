@@ -1,8 +1,7 @@
 package top.humg.utils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,22 +10,30 @@ import org.springframework.stereotype.Component;
 @Component("logger")
 @Aspect//配置为切面类
 public class Logger {
+    //定义切入点方法
+    @Pointcut("execution(* top.humg.service.impl.*.*(..))")
+    private void pt1() {}
+
     //打印日志，在切入点方法前执行（前置通知）
+    @Before("pt1()")
     public void beforePrintLog() {
         System.out.println("前置通知：printLog方法已经执行了");
     }
 
     //后置通知
+    @AfterReturning("pt1()")
     public void afterReturningPrintLog() {
         System.out.println("后置通知：printLog方法已经执行了");
     }
 
     //异常通知
+    @AfterThrowing("pt1()")
     public void afterThrowingPrintLog() {
         System.out.println("异常通知：printLog方法已经执行了");
     }
 
     //最终通知
+    @After("pt1()")
     public void afterPrintLog() {
         System.out.println("最终通知：printLog方法已经执行了");
     }
