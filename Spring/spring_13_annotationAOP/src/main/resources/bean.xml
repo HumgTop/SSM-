@@ -13,4 +13,11 @@
     <context:component-scan base-package="top.humg"/>
     <!--    配置spring开启对注解aop的支持-->
     <aop:aspectj-autoproxy/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
 </beans>
