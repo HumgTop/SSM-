@@ -20,4 +20,11 @@
         <property name="user" value="root"/>
         <property name="password" value="root"/>
     </bean>
+
+    <!--QueryRunner应使用多例模式-->
+    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner"
+          scope="prototype">
+        <!--        使用有参构造方法创建QueryRunner对象-->
+        <constructor-arg name="ds" ref="dataSource"/>
+    </bean>
 </beans>
