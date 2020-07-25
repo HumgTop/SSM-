@@ -1,6 +1,7 @@
 package top.humg.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ public class User implements Serializable {
     private String uname;
     private Integer age;
     private Account account;
+    private Date birth;
     private List<Account> accountList;
     private Map<String, Account> accountMap;
 
@@ -51,12 +53,21 @@ public class User implements Serializable {
         this.accountMap = accountMap;
     }
 
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "uname='" + uname + '\'' +
                 ", age=" + age +
                 ", account=" + account +
+                ", birth=" + birth +
                 ", accountList=" + accountList +
                 ", accountMap=" + accountMap +
                 '}';

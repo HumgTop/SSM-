@@ -3,8 +3,10 @@ package top.humg.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import top.humg.domain.Account;
 import top.humg.domain.User;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/user")
@@ -27,11 +29,20 @@ public class HelloController {
      * 把表单提交的参数封装到Javabean对象中
      *
      * @return
+     *
      */
-    @RequestMapping(path = "/saveAccount")
+    @RequestMapping(path = "/saveUser")
     public String saveAccount(User user) {
         System.out.println("表单参数已封装到Javabean中");
         System.out.println(user);
+        return "success";
+    }
+
+    //获取原生api
+    @RequestMapping("/testServlet")
+    public String testServlet(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(request);
+        System.out.println(response);
         return "success";
     }
 }
