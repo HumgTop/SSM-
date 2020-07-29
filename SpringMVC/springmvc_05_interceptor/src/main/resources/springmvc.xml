@@ -19,8 +19,26 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!--    配置异常处理器-->
-    <bean id="sysExceptionResolver" class="top.humg.exception.SysExceptionResolver"/>
+    <!--    配置拦截器-->
+    <mvc:interceptors>
+        <!--        第一个拦截器-->
+        <mvc:interceptor>
+            <!--            要拦截的具体方法-->
+            <mvc:mapping path="/user/*"/>
+            <!--            <mvc:exclude-mapping path="/**"/> 不拦截的方法-->
+            <!--            配置bean标签-->
+            <bean class="top.humg.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+
+        <!--        配置第二个拦截器-->
+        <mvc:interceptor>
+            <!--            要拦截的具体方法-->
+            <mvc:mapping path="/user/*"/>
+            <!--            <mvc:exclude-mapping path="/**"/> 不拦截的方法-->
+            <!--            配置bean标签-->
+            <bean class="top.humg.interceptor.MyInterceptor2"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!--前端控制器，配置静态资源不拦截-->
     <!--    <mvc:resources location="/css/" mapping="/css/**"/> &lt;!&ndash; 样式 &ndash;&gt;-->

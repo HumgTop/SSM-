@@ -23,10 +23,9 @@ public class SysExceptionResolver implements HandlerExceptionResolver {
         }
         ModelAndView modelAndView = new ModelAndView();
         //将错误信息存入到request域errorMsg属性中
-        modelAndView.addObject("errorMsg", e.getMessage());
+        modelAndView.addObject("errorMsg", sysException.getMessage());
         //跳转到error页面
         modelAndView.setViewName("error");
-        return modelAndView
-                ;
+        return modelAndView;
     }
 }
